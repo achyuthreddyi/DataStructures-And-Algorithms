@@ -69,6 +69,47 @@ class BinaryTree():
                 if currNode.right_node:
                     queue.append(currNode.right_node)
                     
+    def bfs_traversal(self, root: Node):
+        if not root:
+            print("nothing to print")
+            return None
+        
+        queue: list[int] = []
+        
+        queue.append(root)
+        
+        while queue:
+            curr_node: Node = queue.pop(0)
+            
+            print(curr_node.data)
+            
+            if curr_node.left_node:
+                queue.append(curr_node.left_node)
+            if curr_node.right_node:
+                queue.append(curr_node.right_node)
+            
+    
+    def dfs_traversal(self, root: Node):
+        if not root:
+            print("Nothing to print in the tree")
+            return None
+        
+        stack: list[Node] = []
+        
+        stack.append(root)
+        # stack.append(None)
+        
+        while stack:
+            curr_node: Node = stack.pop()
+            
+            print(curr_node.data)
+            
+            if (curr_node.right_node):
+                stack.append(curr_node.right_node)
+            if curr_node.left_node:
+                stack.append(curr_node.left_node)
+        
+                    
     def count_of_nodes(self, root: Node):
         if not root:
             return 0
@@ -104,6 +145,17 @@ class BinaryTree():
         else:
             return 1 + max(self.diameter(root.left_node), self.diameter(root.right_node))
         
+    def give_inorder_traversal(self, root: Node, result: list[Node]):
+        if not root:
+            return
+        
+        self.give_inorder_traversal(root.left_node, result)
+        result.append(root)
+        self.give_inorder_traversal(root.right_node, result)
+
+
+    def balance_bt(self):
+        pass        
         
 nodes: list[int] = [1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1]
 print(len(nodes))
@@ -117,9 +169,10 @@ root: Node = bt.buildTree(nodes)
 # print('\nPost order Traversal')
 # bt.post_order_traversal_print(root)
 print('Level Order Traversal')
-# bt.level_order_traversal(root)
+# bt.dfs_traversal(root)
+bt.bfs_traversal(root)
 
 # print(bt.count_of_nodes(root))
 # print(bt.sum_of_nodes(root))
-print(bt.height(root))
-print('diameter', bt.diameter(root))
+# print(bt.height(root))
+# print('diameter', bt.diameter(root))
